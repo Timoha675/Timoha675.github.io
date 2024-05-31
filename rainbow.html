@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Радуга</title>
+    <style>
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            width: 50%;
+        }
+
+        td {
+            height: 50px;
+            text-align: center;
+            vertical-align: middle;
+            font-size: 16px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .red { background-color: red; }
+        .orange { background-color: orange; }
+        .yellow { background-color: yellow; }
+        .green { background-color: green; }
+        .blue { background-color: blue; }
+        .indigo { background-color: indigo; }
+        .violet { background-color: violet; }
+        
+        button {
+            display: block;
+            margin: 10px auto;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<table>
+    <tr><td class="red"></td></tr>
+    <tr><td class="orange"></td></tr>
+    <tr><td class="yellow"></td></tr>
+    <tr><td class="green"></td></tr>
+    <tr><td class="blue"></td></tr>
+    <tr><td class="indigo"></td></tr>
+    <tr><td class="violet"></td></tr>
+</table>
+
+<button onclick="moveRainbow()">Ручное движение</button>
+<button onclick="startAutoMove()">Автоматическое движение</button>
+
+<script>
+    let colors = ["red", "orange", "yellow", "green", "blue", "indigo", "violet"];
+    let autoMoveInterval;
+
+    function moveRainbow() {
+        let table = document.querySelector("table");
+        let rows = table.querySelectorAll("tr");
+
+        let lastColor = rows[rows.length - 1].firstElementChild.className;
+        for (let i = rows.length - 1; i > 0; i--) {
+            rows[i].firstElementChild.className = rows[i - 1].firstElementChild.className;
+        }
+        rows[0].firstElementChild.className = lastColor;
+    }
+
+    function startAutoMove() {
+        if (autoMoveInterval) return; 
+        autoMoveInterval = setInterval(moveRainbow, 300);
+    }
+
+    function stopAutoMove() {
+        clearInterval(autoMoveInterval);
+        autoMoveInterval = null;
+    }
+</script>
+
+</body>
+</html>

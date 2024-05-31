@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Моё резюме</title>
+    <style>
+        body {
+            font-family: Tahoma, serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: background-color 0.5s;
+        }
+
+        .resume {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 20px;
+            width: 300px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .name, .surname, .age, .smoker {
+            font-size: 20px;
+            color: #555;
+        }
+
+        .surname {
+            font-weight: bold;
+            text-shadow: 1px 1px 2px #aaa;
+        }
+
+        img {
+            border-radius: 50%;
+            margin-bottom: 10px;
+            width: 150px;
+            height: 150px;
+        }
+
+        button {
+            font-size: 16px;
+            padding: 10px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #ddd;
+        }
+
+        .enter-age {
+            background-color: #FF9800;
+            color: white;
+        }
+
+        .smoking-status {
+            background-color: #2196F3;
+            color: white;
+        }
+
+        .change-surname {
+            background-color: #f44336;
+            color: white;
+        }
+    </style>
+</head>
+<body onmouseover="changeBackgroundColor()">
+    <div class="resume">
+        <h1>Моё резюме</h1>
+        <img src="https://sun9-9.userapi.com/impg/qZNVWUv_HNv4sqko7P_3UAjzJMS6jCd-B4YIzg/-Bx9328WGpo.jpg?size=600x600&quality=95&sign=23092761748f43800f153f5fe41db4c2&type=album" alt="Фото">
+        <p class="name" id="name">Имя: Игорь</p>
+        <p class="surname" id="surname">Фамилия: Савилов</p>
+        <p class="age" id="age">Возраст: не указан</p>
+        <p class="smoker" id="smoker">Курящий: не указан</p>
+        <button class="enter-age" onclick="enterAge()">Введите возраст</button>
+        <button class="smoking-status" onclick="chooseSmokingStatus()">Курящий/Некурящий</button>
+        <button class="change-surname" onclick="changeSurname()">Изменить фамилию</button>
+    </div>
+
+    <script>
+        // Функция для ввода возраста
+        function enterAge() {
+            let age;
+            do {
+                age = prompt("Пожалуйста, введите ваш возраст:", "");
+                if (age === null) {
+                    continue; // Если нажата "Отмена", продолжить цикл
+                }
+            } while (!confirm(`Вы ввели возраст: ${age}. Это верно?`));
+            document.getElementById('age').textContent = "Возраст: " + age;
+        }
+
+        // Функция для выбора курящий/некурящий
+        function chooseSmokingStatus() {
+            let isSmoker = confirm("Вы курите?");
+            let status = isSmoker ? "Да" : "Нет";
+            document.getElementById('smoker').textContent = "Курящий: " + status;
+        }
+
+        // Функция для изменения цвета фона
+        function changeBackgroundColor() {
+            const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
+            document.body.style.backgroundColor = randomColor;
+        }
+
+        // Функция для изменения фамилии
+        function changeSurname() {
+            let newSurname;
+            do {
+                newSurname = prompt("Пожалуйста, введите вашу новую фамилию:", "");
+                if (newSurname === null) {
+                    continue; // Если нажата "Отмена", продолжить цикл
+                }
+            } while (!confirm(`Вы ввели фамилию: ${newSurname}. Это верно?`));
+            document.getElementById('surname').textContent = "Фамилия: " + newSurname;
+        }
+    </script>
+</body>
+</html>

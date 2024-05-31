@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Анкета кандидата</title>
+    <style>
+        body {
+            font-family: Tahoma, serif;
+            background-color: #f5f5dc;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .resume {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 20px;
+            width: 300px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="number"],
+        .form-group textarea {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+        }
+
+        .form-group textarea {
+            height: 60px;
+        }
+
+        button {
+            font-size: 16px;
+            padding: 10px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #ddd;
+        }
+
+        .submit-btn {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .disable-checkbox {
+            background-color: #FF9800;
+            color: white;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .checkbox-group {
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="resume">
+        <h1>Анкета кандидата</h1>
+        <div class="form-group">
+            <label for="name">Имя:</label>
+            <input type="text" id="name">
+        </div>
+        <div class="form-group">
+            <label for="surname">Фамилия:</label>
+            <input type="text" id="surname">
+        </div>
+        <div class="form-group">
+            <label for="age">Возраст:</label>
+            <input type="number" id="age">
+        </div>
+        <div class="form-group">
+            <label for="gender">Пол (М/Ж):</label>
+            <input type="text" id="gender">
+        </div>
+        <div class="form-group checkbox-group">
+            <label>Имеется ли:</label>
+            <input type="checkbox" id="higher-education"> Высшее образование<br>
+            <input type="checkbox" id="smoker"> Вредные привычки<br>
+            <input type="checkbox" id="criminal-record"> Справка об отсутствии судимости<br>
+        </div>
+        <div class="form-group">
+            <label for="about">О себе:</label>
+            <textarea id="about"></textarea>
+        </div>
+        <button class="submit-btn" onclick="submitForm()">Заполнить анкету</button>
+        <button class="hidden" id="submit-final" onclick="finalSubmit()">Меня возьмут</button>
+    </div>
+
+    <script>
+        function validateTextInput(input) {
+            return /^[a-zA-Zа-яА-Я]+$/.test(input);
+        }
+
+        function validateGenderInput(input) {
+            return /^(М|Ж)$/.test(input);
+        }
+
+        function submitForm() {
+            const name = document.getElementById('name').value;
+            const surname = document.getElementById('surname').value;
+            const age = document.getElementById('age').value;
+            const gender = document.getElementById('gender').value;
+            const about = document.getElementById('about').value;
+
+            if (!validateTextInput(name)) {
+                alert('Имя должно содержать только буквы.');
+                return;
+            }
+
+            if (!validateTextInput(surname)) {
+                alert('Фамилия должна содержать только буквы.');
+                return;
+            }
+
+            if (age < 0 || !Number.isInteger(Number(age))) {
+                alert('Возраст должен быть неотрицательным целым числом.');
+                return;
+            }
+
+            if (!validateGenderInput(gender)) {
+                alert('Пол должен быть указан как М или Ж.');
+                return;
+            }
+
+            if (!about) {
+                alert('Пожалуйста, напишите пару строк о себе.');
+                return;
+            }
+
+            document.getElementById('submit-final').classList.remove('hidden');
+            document.querySelector('.submit-btn').classList.add('hidden');
+        }
+
+        function finalSubmit() {
+            const checkboxes = document.querySelectorAll('.checkbox-group input[type="checkbox"]');
+            checkboxes.forEach(checkbox => checkbox.disabled = true);
+            alert('Анкета заполнена. Спасибо!');
+        }
+    </script>
+</body>
+</html>

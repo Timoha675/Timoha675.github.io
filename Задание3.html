@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Индивидуальное задание3</title>
+    <script>
+        function askAge() {
+            let age;
+            do {
+                age = prompt("Пожалуйста, введите ваш возраст:", "");
+                if (age === null) {
+                    continue; // Если нажата "Отмена", продолжить цикл
+                }
+            } while (!confirm(`Вы ввели возраст: ${age}. Это верно?`));
+            alert("Спасибо!");
+        }
+
+        window.onload = askAge;
+    </script>
+</head>
+<body>
+    <h1>Запрос возраста</h1>
+</body>
+</html>
